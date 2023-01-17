@@ -18,5 +18,3 @@ COPY app/ /usr/src/app
 
 EXPOSE 80
 CMD ["npm", "start"]
-# CMD tail -f /dev/null
-# CMD ["npm", "run", "dev"]
