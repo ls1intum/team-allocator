@@ -9,6 +9,7 @@
 
 ```
 cd tease/node
+docker build -t team-allocator .
 docker run -p 8080:80 --name tease team-allocator
 ```
 
