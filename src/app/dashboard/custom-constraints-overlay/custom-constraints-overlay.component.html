@@ -1,0 +1,27 @@
+<div class="flex-column flex-center full-size">
+  <div class="dialog-box flex-column" style="padding: 15px;" (click)="$event.stopPropagation()">
+    <div class="dialog-header flex-row flex-center flex-no-shrink">
+      <div class="dialog-heading" style="margin-left: -15px;">Specify Custom Constraints</div>
+    </div>
+
+    <!-- scrollable content -->
+    <div class="scrollable-content">
+      <div class="flex-column flex-no-shrink">
+        <div style="padding-top: 15px; padding-bottom: 15px;">
+          Names of additional boolean constraints should be separated by commas with their names exactly as they appear in the CSV header, for example: skill.ml, attribute.hasRaspberryPi, devices[iPad] (the values in the matching CSV column need to be "true" or "false")
+        </div>
+
+        <textarea> example1, example2 </textarea>
+      </div>
+    </div>
+
+    <div class="flex-row-reverse flex-center flex-no-shrink">
+      <button style="margin-top: 15px;"
+        md-raised-button
+        color="primary"
+        (click)="saveCustomConstraints(); $event.stopPropagation()">
+        Save
+      </button>
+    </div>
+  </div>
+</div>

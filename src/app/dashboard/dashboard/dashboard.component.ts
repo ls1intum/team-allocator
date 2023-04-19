@@ -5,6 +5,7 @@ import { Person } from '../../shared/models/person';
 import { PersonDetailOverlayComponent } from '../person-detail-overlay/person-detail-overlay.component';
 import { OverlayService } from '../../overlay.service';
 import { ConstraintsOverlayComponent } from '../constraints-overlay/constraints-overlay.component';
+import { CustomConstraintsOverlayComponent } from '../custom-constraints-overlay/custom-constraints-overlay.component'
 import { SkillLevel } from '../../shared/models/skill';
 import { Device } from '../../shared/models/device';
 
@@ -74,6 +75,10 @@ export class DashboardComponent implements OnInit {
 
   openConstraintsDialog() {
     this.overlayService.displayComponent(ConstraintsOverlayComponent, { displayWarning: !this.areAllTeamsEmpty() });
+  }
+
+  openCustomConstraintsDialog() {
+    this.overlayService.displayComponent(CustomConstraintsOverlayComponent, {});
   }
 
   protected areAllTeamsEmpty(): boolean {
