@@ -1,7 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { Person } from '../../shared/models/person';
+import { Component, Input, OnInit } from '@angular/core';
+import { Gender, Person } from '../../shared/models/person';
 import { Skill, SkillLevel } from '../../shared/models/skill';
-import { Colors } from '../../shared/constants/color.constants';
 import { CSVConstants } from '../../shared/constants/csv.constants';
 import { IconMapperService } from '../../shared/ui/icon-mapper.service';
 import { Device } from '../../shared/models/device';
@@ -12,28 +11,39 @@ import { NationalityHelper } from '../../shared/helpers/nationality.helper';
   templateUrl: './person-detail-card.component.html',
   styleUrls: ['./person-detail-card.component.scss'],
 })
-export class PersonDetailCardComponent {
+export class PersonDetailCardComponent implements OnInit {
   @Input() person: Person;
+
+  genderIconPath: string;
+  devices: string[];
+  flagEmoji: string;
+  @Input() supervisorRatingColor: string;
+  @Input() isPersonRated: boolean;
+  @Input() labelForSkillLevel: string;
 
   getLabelForSkillLevel = Skill.getLabelForSkillLevel;
   SkillLevel = SkillLevel;
   CSVConstants = CSVConstants;
   Device = Device;
   getFlagEmojiFromNationality = NationalityHelper.getFlagEmojiFromNationality;
+  // getSupervisorRatingColor = Colors.getColor;
 
-  isPersonRated(): boolean {
-    return this.person.supervisorRating !== undefined && this.person.supervisorRating !== SkillLevel.None;
+  ngOnInit(): void {
+    this.mapPersonsAttributes();
   }
 
-  getSupervisorRatingColor(): string {
-    return Colors.getColor(this.person.supervisorRating);
+  mapPersonsAttributes() {
+    this.genderIconPath = this.getGenderIconPath(this.person.gender);
+    this.devices = this.getDeviceIconPaths(this.person.devices);
+    this.flagEmoji = this.getFlagEmojiFromNationality(this.person.nationality);
+    this.labelForSkillLevel = this.getLabelForSkillLevel(this.person.supervisorRating);
   }
 
-  getGenderIconPath(): string {
-    return IconMapperService.getGenderIconPath(this.person.gender);
+  getGenderIconPath(gender: Gender): string {
+    return IconMapperService.getGenderIconPath(gender);
   }
 
-  getDeviceIconPath(device: Device): string {
-    return IconMapperService.getDeviceTypeIconPath(device);
+  getDeviceIconPaths(devices: Device[]): string[] {
+    return devices.map(device => IconMapperService.getDeviceTypeIconPath(device));
   }
 }

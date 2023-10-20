@@ -17,13 +17,22 @@ export class PersonPreviewComponent implements OnInit {
   @Input() person: Person;
   @Input() pinable = true;
 
+  genderIconPath: string;
+
   SkillLevel = SkillLevel;
   Device = Device;
-  PersonConstraintService = PersonConstraintService;
-  getFlagEmojiFromNationality = NationalityHelper.getFlagEmojiFromNationality;
+  iOSSkillLevelColor: string;
+  supervisorRatingColor: string;
+  flagEmoji: string;
+  devices: string[];
+  labelForSkillLevel: string;
+  firstLetterOfSkillLevelName: string;
+  matchesPersonConstraints: boolean;
 
   /* functions used in template */
 
+  PersonConstraintService = PersonConstraintService;
+  protected getFlagEmojiFromNationality = NationalityHelper.getFlagEmojiFromNationality;
   protected getGenderIconPath = IconMapperService.getGenderIconPath;
   protected getColor = Colors.getColor;
   protected getLabelForSkillLevel = Skill.getLabelForSkillLevel;
@@ -32,7 +41,19 @@ export class PersonPreviewComponent implements OnInit {
   constructor(public teamService: TeamService) {}
 
   ngOnInit() {
+    this.matchesPersonConstraints = PersonConstraintService.matchesConstraints(this.person);
     if (!this.pinable) this.person.isPinned = false;
+    this.mapPersonsAttributes();
+  }
+
+  mapPersonsAttributes() {
+    this.genderIconPath = this.getGenderIconPath(this.person.gender);
+    this.iOSSkillLevelColor = this.getColor(this.person.getiOSSkillLevel());
+    this.supervisorRatingColor = this.getColor(this.person.supervisorRating);
+    this.firstLetterOfSkillLevelName = this.getFirstLetterOfSkillLevelName(this.person.getiOSSkillLevel());
+    this.devices = this.getDeviceIconPaths(this.person.devices);
+    this.flagEmoji = this.getFlagEmojiFromNationality(this.person.nationality);
+    this.labelForSkillLevel = this.getLabelForSkillLevel(this.person.supervisorRating);
   }
 
   isPersonRated(): boolean {
@@ -43,7 +64,7 @@ export class PersonPreviewComponent implements OnInit {
     return this.getLabelForSkillLevel(skillLevel).charAt(0);
   }
 
-  getSupervisorRatingString(): string {
-    return Skill.getLabelForSkillLevel(this.person.supervisorRating);
+  getDeviceIconPaths(devices: Device[]): string[] {
+    return devices.map(device => IconMapperService.getDeviceTypeIconPath(device));
   }
 }

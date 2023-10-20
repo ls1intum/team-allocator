@@ -4,7 +4,7 @@ import { Person } from '../../models/person';
 export class PersonConstraintService {
   static personConstraints: PersonConstraint[] = [];
 
-  static matchesConstraints(person: Person) {
+  static matchesConstraints(person: Person): boolean {
     return this.personConstraints.reduce((acc, constraint) => acc && constraint.isFullfilledFor(person), true);
   }
 }

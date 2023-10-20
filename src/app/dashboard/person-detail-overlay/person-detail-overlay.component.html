@@ -5,7 +5,10 @@
         <!-- person detail card with instructor rating buttons -->
         <div class="main-card flex-column overflow-hidden flex-no-shrink">
           <!-- person detail card -->
-          <app-person-detail-card [person]="data.person"></app-person-detail-card>
+          <app-person-detail-card
+            [supervisorRatingColor]="supervisorRatingColor"
+            [isPersonRated]="isPersonRated"
+            [person]="data.person"></app-person-detail-card>
 
           <!-- skill level rating buttons -->
           <div class="supervisor-rating-container flex-column">
@@ -16,39 +19,47 @@
                   id="option-1"
                   class="btn-check"
                   formControlName="personSkillLevelControl"
-                  [value]="SkillLevel.None" />
+                  [value]="SkillLevel[SkillLevel.None]" />
                 <label class="btn-secondary btn-none" for="option-1">
                   <div class="key-icon-container">0</div>
-                  {{ getLabelForSkillLevel(SkillLevel.None) }}
+                  {{ SkillLevel[SkillLevel.None] }}
                 </label>
-                <input type="radio" id="option-2" formControlName="personSkillLevelControl" [value]="SkillLevel.Low" />
+                <input
+                  type="radio"
+                  id="option-2"
+                  formControlName="personSkillLevelControl"
+                  [value]="SkillLevel[SkillLevel.Low]" />
                 <label class="btn-secondary btn-low" for="option-2">
                   <div class="key-icon-container">1</div>
-                  {{ getLabelForSkillLevel(SkillLevel.Low) }}
+                  {{ SkillLevel[SkillLevel.Low] }}
                 </label>
                 <input
                   type="radio"
                   id="option-3"
                   formControlName="personSkillLevelControl"
-                  [value]="SkillLevel.Medium" />
+                  [value]="SkillLevel[SkillLevel.Medium]" />
                 <label class="btn-secondary btn-medium" for="option-3">
                   <div class="key-icon-container">2</div>
-                  {{ getLabelForSkillLevel(SkillLevel.Medium) }}
+                  {{ SkillLevel[SkillLevel.Medium] }}
                 </label>
-                <input type="radio" id="option-4" formControlName="personSkillLevelControl" [value]="SkillLevel.High" />
+                <input
+                  type="radio"
+                  id="option-4"
+                  formControlName="personSkillLevelControl"
+                  [value]="SkillLevel[SkillLevel.High]" />
                 <label class="btn-secondary btn-high" for="option-4">
                   <div class="key-icon-container">3</div>
-                  {{ getLabelForSkillLevel(SkillLevel.High) }}
+                  {{ SkillLevel[SkillLevel.High] }}
                 </label>
                 <input
                   type="radio"
                   id="option-5"
                   class="btn-check"
                   formControlName="personSkillLevelControl"
-                  [value]="SkillLevel.VeryHigh" />
+                  [value]="SkillLevel[SkillLevel.VeryHigh]" />
                 <label class="btn-secondary btn-very-high" for="option-5">
                   <div class="key-icon-container">4</div>
-                  {{ getLabelForSkillLevel(SkillLevel.VeryHigh) }}
+                  {{ SkillLevel[SkillLevel.VeryHigh] }}
                 </label>
               </div>
             </form>

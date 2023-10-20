@@ -9,14 +9,15 @@
     <div class="flex-column name-flex-column overflow-hidden">
       <div class="flex-row" id="name-flex-row">
         <div class="gender-icon">
-          <img src="{{ getGenderIconPath() }}" />
+          <img src="{{ genderIconPath }}" />
         </div>
         <div id="person-name">{{ person.firstName }} {{ person.lastName }}</div>
+        <!-- Update after click / change rating -->
         <div
-          *ngIf="isPersonRated()"
+          *ngIf="isPersonRated"
           class="supervisor-rating-badge flex-right"
-          [style.background-color]="getSupervisorRatingColor()">
-          {{ getLabelForSkillLevel(person.supervisorRating) }}
+          [style.background-color]="supervisorRatingColor">
+          {{ labelForSkillLevel }}
         </div>
       </div>
 
@@ -31,7 +32,7 @@
         </div>
         <div class="flex-column flex-grow person-value-container">
           <div class="heading">Nationality</div>
-          <div class="person-value flag-emoji">{{ getFlagEmojiFromNationality(person.nationality) }}</div>
+          <div class="person-value flag-emoji">{{ flagEmoji }}</div>
           <div class="person-value">{{ person.nationality }}</div>
         </div>
         <div class="flex-column">
@@ -57,9 +58,9 @@
         <div class="flex-column person-value-container">
           <div class="heading">Devices</div>
           <div class="flex-row spacing-x-3">
-            <div *ngIf="person.devices.length == 0" class="person-value">—</div>
-            <div *ngFor="let device of person.devices" matTooltip="{{ Device[device] }}" class="device-icon">
-              <img src="{{ getDeviceIconPath(device) }}" />
+            <div *ngIf="person.devices.length === 0" class="person-value">—</div>
+            <div *ngFor="let device of devices" matTooltip="{{ Device[device] }}" class="device-icon">
+              <img src="{{ device }}" />
             </div>
           </div>
         </div>
@@ -126,7 +127,7 @@
         <div *ngIf="skill.justification.length > 0" class="quote-text">
           <span class="quotation-mark">“</span>{{ skill.justification }}<span class="quotation-mark">”</span>
         </div>
-        <div class="quote-text" *ngIf="skill.justification.length == 0">—</div>
+        <div class="quote-text" *ngIf="skill.justification.length === 0">—</div>
       </div>
     </div>
 
